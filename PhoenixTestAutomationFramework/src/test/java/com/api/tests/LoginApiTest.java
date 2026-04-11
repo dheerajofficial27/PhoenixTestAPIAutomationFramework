@@ -4,9 +4,12 @@ import static io.restassured.RestAssured.*;
 
 import static org.hamcrest.Matchers.*;
 
+import java.io.IOException;
+
 import org.testng.annotations.Test;
 
 import com.api.models.UserLoginCredentials;
+import com.api.utils.ConfigManager;
 
 import io.restassured.http.ContentType;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
@@ -14,12 +17,12 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 public class LoginApiTest {
 	
 	@Test
-	public void loginAPITest() {
+	public void loginAPITest() throws IOException {
 		
 		UserLoginCredentials userlogin = new UserLoginCredentials("iamfd", "password");
 		
 		given()
-		.baseUri("http://64.227.160.186:9000/v1")
+		.baseUri(ConfigManager.getProperty("BASE_URI")) //We have remove the hard coded BASE URI with config properties file.
 		.contentType(ContentType.JSON)
 		.accept(ContentType.JSON)
 		.body(userlogin)
