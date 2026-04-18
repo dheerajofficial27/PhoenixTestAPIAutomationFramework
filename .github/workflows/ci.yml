@@ -21,4 +21,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Execute workflow
+      working-directory: ./PhoenixTestAPIAutomationFramework
       run: mvn clean test -DsuiteXmlFile=testng.xml -Denv=uat
