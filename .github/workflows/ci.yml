@@ -20,6 +20,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Debug - List files
+      run: |
+          pwd
+          find . -name "pom.xml"
     - name: Execute workflow
       working-directory: /PhoenixTestAPIAutomationFramework
       run: mvn clean test -DsuiteXmlFile=testng.xml -Denv=uat
