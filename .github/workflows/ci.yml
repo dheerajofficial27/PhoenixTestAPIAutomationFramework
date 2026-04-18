@@ -27,3 +27,13 @@ jobs:
     - name: Execute workflow
       working-directory: ./PhoenixTestAutomationFramework
       run: mvn clean test -DsuiteXmlFile=testng.xml -Denv=uat
+
+    - name: Upload a Build Artifact
+      if: always()
+      uses: actions/upload-artifact@v7.0.1
+      with:
+        name: Surefire Report
+        path: target/surefire-reports/
+        retention-days: 10
+
+      
