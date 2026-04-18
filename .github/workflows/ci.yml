@@ -25,5 +25,5 @@ jobs:
           pwd
           find . -name "pom.xml"
     - name: Execute workflow
-      working-directory: ./PhoenixTestAutomationFramework/pom.xml
+      working-directory: ./PhoenixTestAutomationFramework
       run: mvn clean test -DsuiteXmlFile=testng.xml -Denv=uat
