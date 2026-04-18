@@ -10,6 +10,22 @@
 		PhoenixTestAutomationFramework</name>
 	<description>PhoenixTestAutomationFramework
 		end to end</description>
+		
+	<build>
+	<plugins>
+	<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.5</version>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+	
+	</plugins>
+	</build>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
