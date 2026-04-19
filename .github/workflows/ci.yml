@@ -35,7 +35,6 @@ jobs:
           pwd
           find . -name "pom.xml"
     - name: Execute workflow
-      working-directory: ./PhoenixTestAutomationFramework
       run: mvn clean test -DsuiteXmlFile=testng.xml -Denv="${{ github.event.inputs.env }}"
 
     - name: Upload a Build Artifact
