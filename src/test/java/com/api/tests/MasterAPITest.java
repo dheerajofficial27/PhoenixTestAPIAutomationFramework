@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import com.api.constant.Role;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
@@ -20,9 +21,14 @@ public class MasterAPITest {
 	@Test
 	public void MasterApiTest() {
 
-		Header authHeader = new Header("Authorization", getToken(Role.FD));
-		given().baseUri(ConfigManager.getProperty("BASE_URI")).header(authHeader).contentType(ContentType.JSON).when()
-				.post("master").then().log().all().statusCode(200).body("message", equalTo("Success"))
+		//Header authHeader = new Header("Authorization", getToken(Role.FD));
+		given()
+		.spec(SpecUtil.requestSpecAuth(Role.FD))
+		.when()
+		.post("master")
+		.then()
+		.spec(SpecUtil.responseSpec())
+		.body("message", equalTo("Success"))
 				.body("data.size()", equalTo(10))
 				.body(matchesJsonSchemaInClasspath("response_schema/masterApiResponse.json"))
 				.body("$", hasKey("message")) //$ means - find key in whole big JSON schema
