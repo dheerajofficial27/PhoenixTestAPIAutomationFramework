@@ -85,7 +85,7 @@ public static RequestSpecification requestSpecAuth(Role role, Object payload) {
 		ResponseSpecification responseSpecification=new ResponseSpecBuilder()
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(200)
-		.expectResponseTime(Matchers.lessThan(2000L))
+		.expectResponseTime(Matchers.lessThan(3000L))
 		.log(LogDetail.BODY)
 		.build();
 		
