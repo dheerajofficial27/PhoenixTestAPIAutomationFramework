@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.lessThan;
 
 import java.io.IOException;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.models.UserLoginCredentials;
@@ -14,10 +15,15 @@ import com.api.utils.SpecUtil;
 
 public class LoginApiTest {
 	
-	@Test
+	private UserLoginCredentials userlogin;
+	
+	@BeforeMethod(description = "Creating Login API Payload")
+	public void setup() {
+		userlogin = new UserLoginCredentials("iamfd", "password");
+	}
+	
+	@Test(description = "Verifying FD user will be able to login successfully", groups = {"api", "regression", "smoke"})
 	public void loginAPITest() throws IOException {
-		
-		UserLoginCredentials userlogin = new UserLoginCredentials("iamfd", "password");
 		
 		given()
 		.spec(SpecUtil.requestSpec(userlogin)) //calling request method from specUtil package

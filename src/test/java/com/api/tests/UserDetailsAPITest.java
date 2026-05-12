@@ -10,10 +10,8 @@ import com.api.utils.SpecUtil;
 
 public class UserDetailsAPITest {
 
-	@Test
+	@Test(description = "Verify the User details is showing correctly in the API response", groups = {"api", "regression", "smoke"})
 	public void userDetailsAPITest() {
-		
-		//Header authHeader = new Header("Authorization", getToken(Role.QC));
 		
 		given()
 		.spec(SpecUtil.requestSpecAuth(Role.FD))
