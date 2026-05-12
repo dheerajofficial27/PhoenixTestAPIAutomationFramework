@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.*;
 
 public class MasterAPITest {
 
-	@Test
+	@Test(description = "Verify the Master API details is showing correctly in the API response", groups = {"api", "regression", "smoke"})
 	public void MasterApiTest() {
 
 		//Header authHeader = new Header("Authorization", getToken(Role.FD));

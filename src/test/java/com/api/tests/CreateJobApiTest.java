@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Model;
@@ -23,20 +24,25 @@ import com.api.utils.SpecUtil;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CreateJobApiTest {
-
-	@Test
-	public void createJobApiTest() {
-
+	
+	private CreateJobPayload createJobPayload;
+	
+	@BeforeMethod(description = "Creating creatJobAPI request payload")
+	public void setup() {
 		Customer customer = new Customer("Dheeraj", "Sharma", "7007183451", "", "dks@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("16 K", "Sunshine Aprtment", "New Kndli", "RedFox Hotel",
 				"Mayur Vihar", "110096", "India", "Delhi");
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDatetime(10), "54098785894645",
-				"554098785894645", "54098785894645", DateTimeUtil.getDatetime(10), Product.NEXUS_2.getCode(),Model.NEXUS_2_BLUE.getcode());
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDatetime(10), "69098785894645",
+				"69098785894645", "69098785894645", DateTimeUtil.getDatetime(10), Product.NEXUS_2.getCode(),Model.NEXUS_2_BLUE.getcode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getcode(), "Battery Issue");
 		List<Problems> problemList = new ArrayList<Problems>();
 		problemList.add(problems);
-		CreateJobPayload createJobPayload = new CreateJobPayload(0, 2, 1, 1, customer, customerAddress, customerProduct,
+		createJobPayload= new CreateJobPayload(0, 2, 1, 1, customer, customerAddress, customerProduct,
 				problemList);
+	}
+
+	@Test(description = "Verify the user will be able to create job for Inwarranty Flow", groups = {"api", "regression", "smoke"})
+	public void createJobApiTest() {
 
 		given().spec(SpecUtil.requestSpecAuth(Role.FD, createJobPayload)).when().post("/job/create").then()
 				.spec(SpecUtil.responseSpec())
