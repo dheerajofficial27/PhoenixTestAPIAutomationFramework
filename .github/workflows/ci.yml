@@ -34,8 +34,15 @@ jobs:
       run: |
           pwd
           find . -name "pom.xml"
+
+    - name: Default values for execution
+      id: default
+      run: |
+           echo "suiteXmlFile=${{ github.event.inputs.suiteXmlFile || 'testng.xml' }}" >> $GITHUB_OUTPUT
+            echo "env=${{ github.event.inputs.env || 'qa' }}" >> $GITHUB_OUTPUT
+            
     - name: Execute workflow
-      run: mvn clean test -DsuiteXmlFile=testng.xml -Denv="${{ github.event.inputs.env }}"
+      run: mvn clean test -DsuiteXmlFile=${{ steps.default.outputs.suiteXmlFile }} -Denv="${{ steps.default.outputs.env }}"
 
     - name: Upload a Build Artifact
       if: always()
